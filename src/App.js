@@ -9,7 +9,7 @@ import Vehicle from "./pages/vehicle/Vehicle";
 import CreateAd from "./pages/ad/CreateAd";
 
 const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
+  uri: "https://buyanycar-backend.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 
