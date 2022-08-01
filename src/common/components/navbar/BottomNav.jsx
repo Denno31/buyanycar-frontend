@@ -56,7 +56,7 @@ const BottomNav = () => {
   React.useEffect(() => {
     setY(window.scrollY);
     window.addEventListener("scroll", (e) => handleNavigation(e));
-  }, [y]);
+  }, [handleNavigation, y]);
   const classes = useStyles();
   return (
     <div className={`mobile-bar ${btNavFixed ? "active" : ""}`}>

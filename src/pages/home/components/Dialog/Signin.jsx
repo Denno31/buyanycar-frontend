@@ -77,6 +77,7 @@ export default function SigninDialog({ handleClickOpen, handleClose, open }) {
       handleClose();
     },
     onError(err) {
+      console.log(error);
       console.log(err.graphQLErrors);
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
