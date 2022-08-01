@@ -69,7 +69,7 @@ export default function SigninDialog({ handleClickOpen, handleClose, open }) {
   const onChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
-  const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
+  const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(proxy, result) {
       //console.log(result.data);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: result.data.login });
@@ -77,7 +77,7 @@ export default function SigninDialog({ handleClickOpen, handleClose, open }) {
       handleClose();
     },
     onError(err) {
-      console.log(error);
+      // console.log(error);
       console.log(err.graphQLErrors);
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
