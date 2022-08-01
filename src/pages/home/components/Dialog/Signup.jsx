@@ -79,7 +79,7 @@ export default function SignupDialog({ handleClickOpen, handleClose, open }) {
   const onChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
-  const [registerUser, { loading, error }] = useMutation(REGISTER_USER, {
+  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
       dispatch({ type: USER_LOGIN_SUCCESS, payload: result.data.register });
       localStorage.setItem("user", JSON.stringify(result.data.register));
