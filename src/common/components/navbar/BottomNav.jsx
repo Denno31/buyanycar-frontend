@@ -56,7 +56,8 @@ const BottomNav = () => {
   React.useEffect(() => {
     setY(window.scrollY);
     window.addEventListener("scroll", (e) => handleNavigation(e));
-  }, [handleNavigation, y]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [y]);
   const classes = useStyles();
   return (
     <div className={`mobile-bar ${btNavFixed ? "active" : ""}`}>
