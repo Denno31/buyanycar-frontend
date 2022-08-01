@@ -1,0 +1,30 @@
+body {
+  background-color: #f1f3f5;
+  box-sizing: border-box;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-family: "slick";
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.9;
+  color: #f28829 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.slick-prev {
+  left: -10px !important;
+  z-index: 1000;
+}
+.slick-next {
+  right: -10px !important;
+  z-index: 1000;
+}
+.carousel-root {
+  outline: none;
+  height: inherit;
+}
+.carousel.carousel-slider {
+  height: inherit;
+}

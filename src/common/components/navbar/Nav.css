@@ -1,0 +1,18 @@
+.mobile-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(160%);
+  transition: transform 0.3s ease-in;
+}
+.mobile-bar.active {
+  transform: translateY(0);
+}
+/* media queries */
+@media only screen and (max-width: 900px) {
+  .mobile-bar {
+    display: block;
+  }
+}

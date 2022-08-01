@@ -1,0 +1,35 @@
+.vehicle-image-slider .swiper-slide {
+  overflow: hidden;
+  position: relative;
+}
+.vehicle-image-slider .swiper-slide img {
+  width: 100%;
+  height: 65vh;
+  object-fit: cover;
+}
+.swiper-button-prev {
+  color: #fff;
+}
+.swiper-button-next {
+  color: #fff;
+}
+.vehicle-image-slider-thumbs .swiper-slide {
+  cursor: pointer;
+  border: 1px solid #dddbdb;
+}
+.vehicle-image-slider-thumbs .swiper-slide.swiper-slide-active {
+  border: 1px solid #f28829;
+}
+.vehicle-image-slider-thumbs .thumbs-wrapper {
+  width: 100%;
+  padding-top: 65%;
+  overflow: hidden;
+  position: relative;
+}
+.vehicle-image-slider-thumbs .thumbs-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  object-fit: cover;
+}
