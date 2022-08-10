@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const GET_VEHICLES = gql`
-  query {
-    getVehicles {
+  query getVehicles($order: String) {
+    getVehicles(order: $order) {
       _id
       make
       model
@@ -59,4 +59,21 @@ const GET_VEHICLE = gql`
     }
   }
 `;
-export { GET_VEHICLES, GET_VEHICLE };
+const GET_VEHICLE_MAKES = gql`
+  query GetVehicleMakes {
+    vehicleMakes {
+      _id
+      make
+    }
+  }
+`;
+const GET_VEHICLE_MODEL = gql`
+  query getVehicleModels($vehicleMake: String!) {
+    vehicleModels(vehicleMake: $vehicleMake) {
+      model
+      make
+    }
+  }
+`;
+
+export { GET_VEHICLES, GET_VEHICLE, GET_VEHICLE_MAKES, GET_VEHICLE_MODEL };

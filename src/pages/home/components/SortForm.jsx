@@ -10,7 +10,7 @@ const StyledSelectInput = styled(Select)(({ theme }) => ({
   width: "210px",
   backgroundColor: "white",
 }));
-const SortForm = ({ sortKey, setSortKey }) => {
+const SortForm = ({ sortKey, setSortKey, onHandleRefech }) => {
   return (
     <SortBoxContainer>
       <FormControl sx={{ m: 1, width: 250, mt: 3 }}>
@@ -19,13 +19,14 @@ const SortForm = ({ sortKey, setSortKey }) => {
           value={sortKey}
           onChange={(e) => {
             setSortKey(e.target.value);
+            // onHandleRefech();
           }}
         >
-          <MenuItem value="Recommended">Recommended</MenuItem>
-          <MenuItem value="Newest">Newest posting first</MenuItem>
-          <MenuItem value="Oldest">Oldest posting first</MenuItem>
-          <MenuItem value="Lowest">Lowest price first</MenuItem>
-          <MenuItem value="Highest">Highest price first</MenuItem>
+          <MenuItem value="recommended">Recommended</MenuItem>
+          <MenuItem value="newest">Newest posting first</MenuItem>
+          <MenuItem value="oldest">Oldest posting first</MenuItem>
+          <MenuItem value="lowest">Lowest price first</MenuItem>
+          <MenuItem value="highest">Highest price first</MenuItem>
         </StyledSelectInput>
       </FormControl>
     </SortBoxContainer>

@@ -1,5 +1,10 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BottomNav from "./common/components/navbar/BottomNav";
 import Navbar from "./common/components/navbar/Navbar";
@@ -7,9 +12,24 @@ import Home from "./pages/home/Home";
 import "./App.css";
 import Vehicle from "./pages/vehicle/Vehicle";
 import CreateAd from "./pages/ad/CreateAd";
+import { setContext } from "@apollo/client/link/context";
+
+const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
+const uri_dev = "http://localhost:5000/graphql";
+
+const httpLink = createHttpLink({
+  uri: uri_dev,
+});
+
+const authLink = setContext(() => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return {
+    headers: { Authorization: user ? `Bearer ${user.token}` : "" },
+  };
+});
 
 const client = new ApolloClient({
-  uri: "https://buyanycar-backend.herokuapp.com/graphql",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

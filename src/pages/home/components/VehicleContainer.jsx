@@ -8,8 +8,10 @@ import { GET_VEHICLES } from "../../../queries/vehicleQueries";
 import Spinner from "../../../common/components/spinner/Spinner";
 
 const VehicleContainer = () => {
-  const [sortKey, setSortKey] = useState("Recommended");
-  const { loading, error, data } = useQuery(GET_VEHICLES);
+  const [sortKey, setSortKey] = useState("recommended");
+  const { loading, error, data, refetch } = useQuery(GET_VEHICLES, {
+    variables: { order: sortKey },
+  });
   if (error) {
     return (
       <Box flex={2.9}>
@@ -17,9 +19,17 @@ const VehicleContainer = () => {
       </Box>
     );
   }
+  const handleRefetch = () => {
+    refetch({ variables: { order: sortKey } });
+  };
+  console.log(refetch);
   return (
     <Box flex={2.9}>
-      <SortForm sortKey={sortKey} setSortKey={setSortKey} />
+      <SortForm
+        sortKey={sortKey}
+        setSortKey={setSortKey}
+        onHandleRefech={handleRefetch}
+      />
       {loading ? (
         <Spinner />
       ) : (
