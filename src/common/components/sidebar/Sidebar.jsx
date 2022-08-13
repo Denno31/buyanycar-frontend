@@ -5,7 +5,6 @@ import {
   Card,
   Typography,
   FormControl,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -89,8 +88,8 @@ const SideBarContainer = styled(Box)(({ theme }) => ({
 }));
 const Sidebar = () => {
   const {
-    loading: loadingMakes,
-    error: errorMakes,
+    // loading: loadingMakes,
+    // error: errorMakes,
     data: dataMakes,
   } = useQuery(GET_VEHICLE_MAKES);
 

@@ -90,7 +90,7 @@ const CreateAd = () => {
   const [registered, setRegistered] = React.useState(true);
   const [errors, setErrors] = React.useState({});
   const [loadingImageUpload, setLoadingImageUpload] = React.useState(false);
-  const [postSuccessFull, setPostSuccessFull] = React.useState(false);
+  // const [postSuccessFull, setPostSuccessFull] = React.useState(false);
 
   React.useEffect(() => {
     if (document.getElementById("image-input"))
@@ -110,15 +110,19 @@ const CreateAd = () => {
   const [
     getSubCounties,
     {
-      loading: loadingSubCounties,
-      error: errorSubcounties,
+      // loading: loadingSubCounties,
+      // error: errorSubcounties,
       data: dataSubcounties,
     },
   ] = useLazyQuery(GET_SUB_COUNTIES);
 
   const [
     getVehicleModels,
-    { loading: loadingModels, error: errorModels, data: dataModels },
+    {
+      // loading: loadingModels,
+      // error: errorModels,
+      data: dataModels,
+    },
   ] = useLazyQuery(GET_VEHICLE_MODEL);
   const [postVehicle, { loading: loadingPostVehicle }] = useMutation(POST_ADD, {
     update(proxy, result) {
@@ -163,25 +167,25 @@ const CreateAd = () => {
   if (errorMakes || errorCounties) return <div>Something went wrong</div>;
 
   //select file event
-  const onSelectFiles = (e) => {
-    setImgError("");
+  // const onSelectFiles = (e) => {
+  //   setImgError("");
 
-    if (imageFileExists(e.target.files[0].name)) {
-      setImgError("The image has already been selected.");
-      return;
-    }
-    if (files.length === 15) {
-      setImgError("Maximum number of images reach.");
-      return;
-    }
-    setFiles([...files, e.target.files[0]]);
+  //   if (imageFileExists(e.target.files[0].name)) {
+  //     setImgError("The image has already been selected.");
+  //     return;
+  //   }
+  //   if (files.length === 15) {
+  //     setImgError("Maximum number of images reach.");
+  //     return;
+  //   }
+  //   setFiles([...files, e.target.files[0]]);
 
-    // set images in local storage
-    let tempImagesArr = [];
-    //console.log(e.target.files[0]);
-    tempImagesArr = [...files, e.target.files[0]];
-    localStorage.setItem("selectedImages", JSON.stringify(tempImagesArr));
-  };
+  //   // set images in local storage
+  //   let tempImagesArr = [];
+  //   //console.log(e.target.files[0]);
+  //   tempImagesArr = [...files, e.target.files[0]];
+  //   localStorage.setItem("selectedImages", JSON.stringify(tempImagesArr));
+  // };
   const removeImage = (img) => {
     const newImageArray = files.filter((item) => item.name !== img.name);
     setFiles(newImageArray);
@@ -214,34 +218,34 @@ const CreateAd = () => {
   };
   //post data after upload is done
 
-  const uploadData = async () => {
-    const uploadImageArray = [];
-    const data = new FormData();
+  // const uploadData = async () => {
+  //   const uploadImageArray = [];
+  //   const data = new FormData();
 
-    data.append("upload_preset", "instaclone");
-    data.append("cloud_name", "dm7tddlog");
-    try {
-      files.forEach(async (singleFile) => {
-        data.append("file", singleFile);
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dm7tddlog/image/upload",
-          {
-            method: "post",
-            body: data,
-          }
-        );
-        const jsonData = await res.json();
-        uploadImageArray.push(jsonData.url);
-        //console.log(jsonData.url);
-      });
+  //   data.append("upload_preset", "instaclone");
+  //   data.append("cloud_name", "dm7tddlog");
+  //   try {
+  //     files.forEach(async (singleFile) => {
+  //       data.append("file", singleFile);
+  //       const res = await fetch(
+  //         "https://api.cloudinary.com/v1_1/dm7tddlog/image/upload",
+  //         {
+  //           method: "post",
+  //           body: data,
+  //         }
+  //       );
+  //       const jsonData = await res.json();
+  //       uploadImageArray.push(jsonData.url);
+  //       //console.log(jsonData.url);
+  //     });
 
-      setUploadedImages([...uploadImageArray]);
-      setImageUploadDone(true);
-    } catch (err) {
-      setImageUploadDone(false);
-      console.log(err);
-    }
-  };
+  //     setUploadedImages([...uploadImageArray]);
+  //     setImageUploadDone(true);
+  //   } catch (err) {
+  //     setImageUploadDone(false);
+  //     console.log(err);
+  //   }
+  // };
 
   const uploadSingleImage = async (e) => {
     setImgError("");

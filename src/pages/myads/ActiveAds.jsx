@@ -5,7 +5,6 @@ import {
   CardContent,
   CardHeader,
   Container,
-  Divider,
   styled,
   Typography,
 } from "@mui/material";
@@ -26,15 +25,20 @@ const AccountDetailBox = styled(Box)(({ theme }) => ({
   width: "75%",
 }));
 
-const AccountInfoBox = styled(Box)(({ theme }) => ({
-  borderBottom: "1px solid #dcdfe2",
-  marginBottom: "5px",
-  paddingBottom: "5px",
-}));
+// const AccountInfoBox = styled(Box)(({ theme }) => ({
+//   borderBottom: "1px solid #dcdfe2",
+//   marginBottom: "5px",
+//   paddingBottom: "5px",
+// }));
 
 const ActiveAds = () => {
   const { userInfo } = useSelector((state) => state.userInfo);
-  const { loading, error, data, refetch } = useQuery(GET_VEHICLES_BY_USER, {
+  const {
+    loading,
+    // error,
+    data,
+    //  refetch
+  } = useQuery(GET_VEHICLES_BY_USER, {
     variables: { userId: userInfo?.id },
   });
 
