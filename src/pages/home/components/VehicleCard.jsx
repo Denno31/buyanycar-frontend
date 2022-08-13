@@ -67,7 +67,7 @@ const VehicleCard = ({ vehicle }) => {
   const navigate = useNavigate();
   return (
     <Box
-      sx={{ marginBottom: "15px" }}
+      sx={{ marginBottom: "15px", boxSizing: "border-box" }}
       onClick={() => navigate(`/vehicle/${vehicle._id}`)}
     >
       <StyledCard>

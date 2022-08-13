@@ -75,5 +75,42 @@ const GET_VEHICLE_MODEL = gql`
     }
   }
 `;
+const GET_VEHICLES_BY_USER = gql`
+  query getVehiclesByUser($userId: ID!) {
+    getVehiclesByUser(userId: $userId) {
+      _id
+      make
+      model
+      color
+      condition
+      transmission
+      mileage
+      vinChassisNumber
+      description
+      phoneNumber
+      manufactureYear
+      bodyType
+      engineSize
+      price
+      location
+      vehicleImageUrl
+      negotiable
+      fuel
+      vehicleOwner {
+        firstName
+        lastName
+      }
+      engineSize
+      registered
+      description
+    }
+  }
+`;
 
-export { GET_VEHICLES, GET_VEHICLE, GET_VEHICLE_MAKES, GET_VEHICLE_MODEL };
+export {
+  GET_VEHICLES,
+  GET_VEHICLE,
+  GET_VEHICLE_MAKES,
+  GET_VEHICLE_MODEL,
+  GET_VEHICLES_BY_USER,
+};

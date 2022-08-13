@@ -210,7 +210,14 @@ const Navbar = () => {
         >
           Profile
         </MenuItem>
-        <MenuItem onClick={() => setAnchorEl(null)}>My account</MenuItem>
+        <MenuItem
+          onClick={() => {
+            setAnchorEl(null);
+            navigate("/me/account");
+          }}
+        >
+          My account
+        </MenuItem>
         <MenuItem
           onClick={() => {
             logout();

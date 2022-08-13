@@ -27,6 +27,7 @@ import Spinner from "../../common/components/spinner/Spinner";
 import { GET_COUNTIES, GET_SUB_COUNTIES } from "../../queries/countyQueries";
 import { POST_ADD } from "../../mutations/vehicleMutations";
 import SpinnerGif from "../../spinner.gif";
+import UploadGif from "../../upload-small.gif";
 const PhotoBox = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -89,6 +90,7 @@ const CreateAd = () => {
   const [registered, setRegistered] = React.useState(true);
   const [errors, setErrors] = React.useState({});
   const [loadingImageUpload, setLoadingImageUpload] = React.useState(false);
+  const [postSuccessFull, setPostSuccessFull] = React.useState(false);
 
   React.useEffect(() => {
     if (document.getElementById("image-input"))
@@ -121,7 +123,7 @@ const CreateAd = () => {
   const [postVehicle, { loading: loadingPostVehicle }] = useMutation(POST_ADD, {
     update(proxy, result) {
       console.log(result);
-      resetState();
+      if (result?.data?.postVehicle) resetState();
     },
     onError(err) {
       //console.log(err.graphQLErrors[0].extensions.errors);
@@ -150,10 +152,11 @@ const CreateAd = () => {
   });
   //post data after cloudinary upload is done
   React.useEffect(() => {
-    if (imageUploadDone && uploadedImages.length > 0) {
-      postVehicle();
-      setImageUploadDone(false);
-    }
+    // if (imageUploadDone && uploadedImages.length > 0) {
+    //   postVehicle();
+    //   console.log("done");
+    //   setImageUploadDone(false);
+    // }
   }, [postVehicle, uploadedImages, imageUploadDone]);
 
   if (loadingMakes || loadingCounties) return <Spinner />;
@@ -772,9 +775,15 @@ const CreateAd = () => {
                   color="secondary"
                   onClick={postVehicle}
                   variant="outlined"
+                  disabled={loadingPostVehicle}
                 >
                   Post Ad
                 </Button>
+                {loadingPostVehicle && (
+                  <Box>
+                    <img src={UploadGif} alt="" />
+                  </Box>
+                )}
                 <Box
                   sx={{
                     padding: "15px",

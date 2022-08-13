@@ -3,6 +3,7 @@ import { Box, Container, styled, Stack } from "@mui/material";
 
 import Sidebar from "../../common/components/sidebar/Sidebar";
 import VehicleContainer from "./components/VehicleContainer";
+
 const StyledBox = styled(Box)({
   marginTop: "20px",
 });
