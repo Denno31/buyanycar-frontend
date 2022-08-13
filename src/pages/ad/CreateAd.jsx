@@ -64,12 +64,11 @@ const InputBox = styled(Box)(({ theme }) => ({
   },
 }));
 const CreateAd = () => {
-  const [imageUploadDone, setImageUploadDone] = React.useState(false);
+  // const [imageUploadDone, setImageUploadDone] = React.useState(false);
   const [imgError, setImgError] = React.useState("");
 
-  const [uploadedImages, setUploadedImages] = React.useState(
-    uploadedLocalStorageImages()
-  );
+  const uploadedImages = uploadedLocalStorageImages();
+
   const [files, setFiles] = React.useState(getLocalStorageImages());
   const [county, setCounty] = React.useState("");
   const [area, setArea] = React.useState("");
@@ -155,13 +154,13 @@ const CreateAd = () => {
     },
   });
   //post data after cloudinary upload is done
-  React.useEffect(() => {
-    // if (imageUploadDone && uploadedImages.length > 0) {
-    //   postVehicle();
-    //   console.log("done");
-    //   setImageUploadDone(false);
-    // }
-  }, [postVehicle, uploadedImages, imageUploadDone]);
+  // React.useEffect(() => {
+  //   // if (imageUploadDone && uploadedImages.length > 0) {
+  //   //   postVehicle();
+  //   //   console.log("done");
+  //   //   setImageUploadDone(false);
+  //   // }
+  // }, [postVehicle, uploadedImages, imageUploadDone]);
 
   if (loadingMakes || loadingCounties) return <Spinner />;
   if (errorMakes || errorCounties) return <div>Something went wrong</div>;
