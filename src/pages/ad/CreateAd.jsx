@@ -28,6 +28,7 @@ import { GET_COUNTIES, GET_SUB_COUNTIES } from "../../queries/countyQueries";
 import { POST_ADD } from "../../mutations/vehicleMutations";
 import SpinnerGif from "../../spinner.gif";
 import UploadGif from "../../upload-small.gif";
+import { useNavigate } from "react-router-dom";
 const PhotoBox = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -65,6 +66,7 @@ const InputBox = styled(Box)(({ theme }) => ({
 }));
 const CreateAd = () => {
   // const [imageUploadDone, setImageUploadDone] = React.useState(false);
+  const navigate = useNavigate();
   const [imgError, setImgError] = React.useState("");
 
   const uploadedImages = uploadedLocalStorageImages();
@@ -126,7 +128,10 @@ const CreateAd = () => {
   const [postVehicle, { loading: loadingPostVehicle }] = useMutation(POST_ADD, {
     update(proxy, result) {
       console.log(result);
-      if (result?.data?.postVehicle) resetState();
+      if (result?.data?.postVehicle) {
+        resetState();
+        navigate("/me/active-ads");
+      }
     },
     onError(err) {
       //console.log(err.graphQLErrors[0].extensions.errors);
