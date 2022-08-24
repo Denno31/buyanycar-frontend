@@ -1,0 +1,18 @@
+#label-photo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px dotted black;
+  border-radius: 50%;
+  width: 82px;
+  height: 82px;
+  cursor: pointer;
+  font-size: large;
+}
+#label-photo input {
+  display: none;
+}
+#image-box:hover #remove-image-icon {
+  display: block;
+}

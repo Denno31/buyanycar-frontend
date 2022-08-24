@@ -2,8 +2,9 @@ import React from "react";
 import { Box, styled, Card, CardMedia, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useNavigate } from "react-router-dom";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+
 import { shillingKE } from "../../../utils/util";
+import AddToFavoriteButton from "./AddToFavoriteButton";
 const StyledCard = styled(Card)({
   display: "flex",
   "&:hover": {
@@ -45,20 +46,7 @@ const CardHeaderBox = styled(Box)(({ theme }) => ({
     paddingBottom: "4px",
   },
 }));
-const FavoriteIconStyled = styled(BookmarkBorderIcon)({
-  position: "absolute",
-  backgroundColor: "white",
-  borderRadius: "50%",
-  padding: "8px",
-  color: "red",
-  bottom: 5,
-  right: 5,
-  "&:hover": {
-    background: "#F8F9FA",
-    cursor: "pointer",
-    padding: "9px",
-  },
-});
+
 const CardMediaStyled = styled(CardMedia)(({ theme }) => ({
   [theme.breakpoints.down("md")]: { height: "125px", width: "125px" },
 }));
@@ -80,7 +68,8 @@ const VehicleCard = ({ vehicle }) => {
             sx={{ width: "100%", height: "100%" }}
             image={vehicle.vehicleImageUrl[0]}
           />
-          <FavoriteIconStyled fontSize="medium" />
+          {/* <FavoriteIconStyled fontSize="medium" /> */}
+          <AddToFavoriteButton vehicleId={vehicle._id} />
         </CardMediaStyled>
         <CardDescriptonBox
           sx={{

@@ -10,6 +10,7 @@ import {
 import React from "react";
 import { useSelector } from "react-redux";
 import Sidebar from "./components/Sidebar";
+import SidebarMenu from "./components/SidebarMenu";
 
 const WrapperBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -19,6 +20,9 @@ const WrapperBox = styled(Box)(({ theme }) => ({
 
 const AccountDetailBox = styled(Box)(({ theme }) => ({
   width: "75%",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+  },
 }));
 
 const AccountInfoBox = styled(Box)(({ theme }) => ({
@@ -39,11 +43,16 @@ const Account = () => {
               paddingBottom: "7px",
               borderBottom: "1px solid  #F28829",
               marginBottom: "15px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
             variant="h5"
           >
             Account
+            <SidebarMenu />
           </Typography>
+
           <Card>
             <CardHeader title="Account Information"></CardHeader>
             <CardContent>

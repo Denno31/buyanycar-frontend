@@ -101,10 +101,10 @@ const ResetIconStyled = styled(Box)({
 });
 const SideBarContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
-    display: "none",
+    display: "block",
   },
 }));
-const Sidebar = () => {
+const FiltersMobile = () => {
   const [searchParams] = useSearchParams();
   const [fromYear, setFromYear] = React.useState("");
   const [toYear, setToYear] = React.useState("");
@@ -127,7 +127,7 @@ const Sidebar = () => {
       vehicleMake: searchParams.get("car_make") || "all",
     },
   });
-
+  console.log("Errror models:", errorModels);
   const getYears = () => {
     const years = [];
     const currentTime = new Date();
@@ -764,4 +764,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default FiltersMobile;

@@ -1,8 +1,40 @@
 import { gql } from "@apollo/client";
 
 const GET_VEHICLES = gql`
-  query getVehicles($order: String) {
-    getVehicles(order: $order) {
+  query getVehicles(
+    $order: String
+    $make: String
+    $model: String
+    $manufactureYearMin: String
+    $manufactureYearMax: String
+    $condition: [String]
+    $bodyType: [String]
+    $engineSize: [Float]
+    $color: [String]
+    $fuel: [String]
+    $transmission: [String]
+    $price_min: Float
+    $price_max: Float
+    $registered: String
+  ) {
+    getVehicles(
+      order: $order
+      vehicleFilter: {
+        make: $make
+        manufactureYearMin: $manufactureYearMin
+        manufactureYearMax: $manufactureYearMax
+        condition: $condition
+        bodyType: $bodyType
+        engineSize: $engineSize
+        color: $color
+        fuel: $fuel
+        transmission: $transmission
+        price_min: $price_min
+        price_max: $price_max
+        registered: $registered
+        model: $model
+      }
+    ) {
       _id
       make
       model

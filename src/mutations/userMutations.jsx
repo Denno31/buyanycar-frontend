@@ -25,6 +25,7 @@ const REGISTER_USER = gql`
       firstName
       lastName
       phoneNumber
+      favoriteVehicles
     }
   }
 `;
@@ -38,8 +39,15 @@ const LOGIN_USER = gql`
       firstName
       lastName
       phoneNumber
+      favoriteVehicles
     }
   }
 `;
-
-export { REGISTER_USER, LOGIN_USER };
+const ADD_VEHICLE_TO_FAVORITE = gql`
+  mutation postFavoriteVehicle($vehicleId: ID!) {
+    postFavoriteVehicle(vehicleId: $vehicleId) {
+      favoriteVehicles
+    }
+  }
+`;
+export { REGISTER_USER, LOGIN_USER, ADD_VEHICLE_TO_FAVORITE };

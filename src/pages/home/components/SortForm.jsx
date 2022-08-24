@@ -10,16 +10,22 @@ const StyledSelectInput = styled(Select)(({ theme }) => ({
   width: "210px",
   backgroundColor: "white",
 }));
-const SortForm = ({ sortKey, setSortKey, onHandleRefech }) => {
+const SortForm = ({ sortKey, setSortKey }) => {
   return (
     <SortBoxContainer>
-      <FormControl sx={{ m: 1, width: 250, mt: 3 }}>
+      <FormControl
+        sx={{
+          m: 1,
+          width: 250,
+          mt: 3,
+          display: { sm: "none", xs: "none", lg: "block", md: "block" },
+        }}
+      >
         <StyledSelectInput
           id="sort-key"
           value={sortKey}
           onChange={(e) => {
             setSortKey(e.target.value);
-            // onHandleRefech();
           }}
         >
           <MenuItem value="recommended">Recommended</MenuItem>

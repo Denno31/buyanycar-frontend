@@ -16,12 +16,14 @@ import { setContext } from "@apollo/client/link/context";
 import PrivateRoute from "./Auth/PrivateRoute";
 import Account from "./pages/account/Account";
 import ActiveAds from "./pages/myads/ActiveAds";
+import EditVehicle from "./pages/myads/EditVehicle";
+import Favorite from "./pages/myads/Favorite";
 
-const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
-//const uri_dev = "http://localhost:5000/graphql";
+//const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
+const uri_dev = "http://localhost:5000/graphql";
 
 const httpLink = createHttpLink({
-  uri: uri_prod,
+  uri: uri_dev,
 });
 
 const authLink = setContext(() => {
@@ -97,6 +99,25 @@ function App() {
                   </PrivateRoute>
                 }
               ></Route>
+              <Route
+                exact
+                path="/me/favorites"
+                element={
+                  <PrivateRoute>
+                    <Favorite />
+                  </PrivateRoute>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/me/:vehicleId/edit"
+                element={
+                  <PrivateRoute>
+                    <EditVehicle />
+                  </PrivateRoute>
+                }
+              ></Route>
+              <Route path="*" element={<Home />}></Route>
             </Routes>
             <BottomNav />
           </div>

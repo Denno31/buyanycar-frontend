@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { shillingKE } from "../../../utils/util";
 import AccessAlarmsRoundedIcon from "@mui/icons-material/AccessAlarmsRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DeleteAdButton from "../../account/components/DeleteAdButton";
 
 const StyledCard = styled(Card)({
   display: "flex",
@@ -79,6 +79,17 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
     backgroundColor: "green",
   },
 }));
+const LiveTagBoxStyled = styled(Box)(({ theme }) => ({
+  backgroundColor: "#eae8e8",
+  padding: "5px",
+  borderRadius: "2px",
+  display: "flex",
+  alignItems: "center",
+  gap: "5px",
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
 const VehicleCard = ({ vehicle }) => {
   const navigate = useNavigate();
   return (
@@ -124,27 +135,43 @@ const VehicleCard = ({ vehicle }) => {
                   </Typography>
                 </Box>
               </CardHeaderBox>
-              <BoxSpecWrapper>
+              <BoxSpecWrapper
+                sx={{
+                  display: { xs: "none", md: "flex", lg: "flex", sm: "none" },
+                }}
+              >
                 {" "}
                 <Typography color="primary">Reviewing</Typography>
-                <Box
-                  sx={{
-                    backgroundColor: "#eae8e8",
-                    padding: "5px",
-                    borderRadius: "2px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
-                  }}
-                >
+                {/* <LiveTagBoxStyled>
                   <AccessAlarmsRoundedIcon />
                   <Typography fontSize="14px">Live in 1.4hr</Typography>
-                </Box>
+                </LiveTagBoxStyled> */}
               </BoxSpecWrapper>
+              <Box
+                sx={{
+                  flexDirection: "column",
+                  gap: "5px",
+                  padding: "5px",
+                  display: { xs: "flex", md: "none", lg: "none", sm: "flex" },
+                }}
+              >
+                <DeleteAdButton vehicleId={vehicle._id} />
+
+                <ButtonStyled
+                  size="small"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/me/${vehicle._id}/edit`);
+                  }}
+                  startIcon={<EditRoundedIcon />}
+                  variant="contained"
+                ></ButtonStyled>
+              </Box>
             </Box>
             <Box
               sx={{
-                display: "flex",
+                display: { xs: "none", md: "flex", lg: "flex", sm: "none" },
+
                 alignItems: "center",
               }}
             >
@@ -161,19 +188,14 @@ const VehicleCard = ({ vehicle }) => {
         </Box>
         <Box
           sx={{
-            display: "flex",
             flexDirection: "column",
             gap: "5px",
             padding: "5px",
+            display: { xs: "none", md: "flex", lg: "flex", sm: "none" },
           }}
         >
-          <Button
-            size="small"
-            startIcon={<DeleteForeverIcon />}
-            variant="outlined"
-          >
-            Delete
-          </Button>
+          <DeleteAdButton vehicleId={vehicle._id} />
+
           <ButtonStyled
             size="small"
             onClick={(e) => {

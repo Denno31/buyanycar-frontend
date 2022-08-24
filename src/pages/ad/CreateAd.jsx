@@ -127,7 +127,7 @@ const CreateAd = () => {
   ] = useLazyQuery(GET_VEHICLE_MODEL);
   const [postVehicle, { loading: loadingPostVehicle }] = useMutation(POST_ADD, {
     update(proxy, result) {
-      console.log(result);
+      //console.log(result);
       if (result?.data?.postVehicle) {
         resetState();
         navigate("/me/active-ads");
@@ -276,7 +276,7 @@ const CreateAd = () => {
         }
       );
       const jsonData = await res.json();
-      console.log(jsonData);
+      // console.log(jsonData);
       setFiles([
         ...files,
         { cloudUrl: jsonData.url, name: e.target.files[0].name },

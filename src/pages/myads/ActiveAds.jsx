@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import Spinner from "../../common/components/spinner/Spinner";
 import { GET_VEHICLES_BY_USER } from "../../queries/vehicleQueries";
 import Sidebar from "../account/components/Sidebar";
+import SidebarMenu from "../account/components/SidebarMenu";
 import VehicleCard from "./components/VehicleCard";
 
 const WrapperBox = styled(Box)(({ theme }) => ({
@@ -23,6 +24,9 @@ const WrapperBox = styled(Box)(({ theme }) => ({
 
 const AccountDetailBox = styled(Box)(({ theme }) => ({
   width: "75%",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+  },
 }));
 
 // const AccountInfoBox = styled(Box)(({ theme }) => ({
@@ -52,10 +56,14 @@ const ActiveAds = () => {
               paddingBottom: "7px",
               borderBottom: "1px solid  #F28829",
               marginBottom: "15px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
             variant="h5"
           >
             Active Ads
+            <SidebarMenu />
           </Typography>
           <Card>
             <CardHeader title="My active Ads"></CardHeader>

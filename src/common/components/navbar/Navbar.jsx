@@ -126,7 +126,7 @@ const Navbar = () => {
           >
             BuyAnyCarKe
           </Typography>
-          {userInfo !== null && (
+          {userInfo && userInfo?.userInfo && (
             <Box className={classes.ProfileIcon}>
               <Avatar
                 alt="Denno"
@@ -138,7 +138,7 @@ const Navbar = () => {
               ></Avatar>
             </Box>
           )}
-          {userInfo === null && (
+          {!(userInfo && userInfo?.userInfo) && (
             <Box
               sx={{
                 display: "flex",
@@ -158,11 +158,14 @@ const Navbar = () => {
               </SellIconStyled> */}
             </Box>
           )}
-          {userInfo !== null && (
+          {userInfo && userInfo?.userInfo && (
             <MenuBox>
               <MessageIcon className={classes.MenuIcon} />
               <NotificationsIcon className={classes.MenuIcon} />
-              <BookmarkBorderIcon className={classes.MenuIcon} />
+              <BookmarkBorderIcon
+                onClick={(e) => navigate("/me/favorites")}
+                className={classes.MenuIcon}
+              />
               <Avatar
                 alt="Denno"
                 src="/image/image.jpg"

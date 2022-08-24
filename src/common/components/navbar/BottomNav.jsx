@@ -6,6 +6,7 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import { makeStyles } from "@mui/styles";
+import { useNavigate } from "react-router-dom";
 
 const BoxWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
@@ -41,6 +42,7 @@ const MobileBarItem = styled(Box)(({ theme }) => ({
 }));
 
 const BottomNav = () => {
+  const navigate = useNavigate();
   const [y, setY] = React.useState(0);
   const [btNavFixed, setBtnNavFixed] = React.useState(false);
   const handleNavigation = (e) => {
@@ -62,7 +64,7 @@ const BottomNav = () => {
   return (
     <div className={`mobile-bar ${btNavFixed ? "active" : ""}`}>
       <BoxWrapper>
-        <MobileBarItem>
+        <MobileBarItem onClick={() => navigate("/")}>
           <HomeOutlinedIcon className={classes.MenuIcon} />
           <Typography
             sx={{ marginTop: "0", fontSize: "13px", color: "#727272" }}
@@ -72,7 +74,7 @@ const BottomNav = () => {
             Home
           </Typography>
         </MobileBarItem>
-        <MobileBarItem>
+        <MobileBarItem onClick={() => navigate("/new-ad")}>
           <AddBoxOutlinedIcon className={classes.MenuIcon} />
           <Typography
             sx={{ marginTop: "0", fontSize: "13px", color: "#727272" }}

@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 const SidebarBox = styled(Card)(({ theme }) => ({
   width: "25%",
   height: "max-content",
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
 }));
 const Sidebar = ({ active }) => {
   const activeClass = (currentTab) => {
@@ -55,8 +58,8 @@ const Sidebar = ({ active }) => {
           </ListItemButton>
         </ListItem>
         <Divider />
-        <ListItem disablePadding>
-          <ListItemButton>
+        <ListItem sx={{ ...activeClass("favorites") }} disablePadding>
+          <ListItemButton component={Link} to="/me/favorites">
             <ListItemIcon></ListItemIcon>
             <ListItemText primary="Favorites" />
           </ListItemButton>
