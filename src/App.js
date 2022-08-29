@@ -21,11 +21,11 @@ import Favorite from "./pages/myads/Favorite";
 import UnderReviewAds from "./pages/myads/UnderReviewAds";
 import DeclinedAds from "./pages/myads/DeclinedAds";
 
-//const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
-const uri_dev = "http://localhost:5000/graphql";
+const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
+// const uri_dev = "http://localhost:5000/graphql";
 
 const httpLink = createHttpLink({
-  uri: uri_dev,
+  uri: uri_prod,
 });
 
 const authLink = setContext(() => {
