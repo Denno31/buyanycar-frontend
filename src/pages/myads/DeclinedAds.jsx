@@ -29,9 +29,13 @@ const AccountDetailBox = styled(Box)(({ theme }) => ({
   },
 }));
 
+// const AccountInfoBox = styled(Box)(({ theme }) => ({
+//   borderBottom: "1px solid #dcdfe2",
+//   marginBottom: "5px",
+//   paddingBottom: "5px",
+// }));
 
-
-const UnderReviewAds = () => {
+const DeclinedAds = () => {
   const { userInfo } = useSelector((state) => state.userInfo);
   const {
     loading,
@@ -45,7 +49,7 @@ const UnderReviewAds = () => {
   return (
     <Container>
       <WrapperBox>
-        <Sidebar active="under-review-ads" />
+        <Sidebar active="declined-ads" />
         <AccountDetailBox>
           <Typography
             style={{
@@ -58,11 +62,11 @@ const UnderReviewAds = () => {
             }}
             variant="h5"
           >
-            Under Review      
+            Declined Ads
             <SidebarMenu />
           </Typography>
           <Card>
-            <CardHeader title="My Under Review Ads"></CardHeader>
+            <CardHeader title="My Declined Ads"></CardHeader>
             <CardContent>
               {loading ? (
                 <Spinner />
@@ -81,4 +85,4 @@ const UnderReviewAds = () => {
   );
 };
 
-export default UnderReviewAds;
+export default DeclinedAds;

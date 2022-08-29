@@ -6,6 +6,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "./swiper.css";
+import { Box } from "@mui/material";
+import SwiperSliderFull from "./SwipperSliderFull";
 
 // const images = [
 //   "https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZ2UlMjByb3ZlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
@@ -18,8 +20,54 @@ import "./swiper.css";
 
 const SwiperImage = ({ images }) => {
   const [activeThumb, setActiveThumb] = React.useState(null);
+  // const [open, setOpen] = React.useState(false);
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   return (
     <>
+      {/* <SwiperSliderFull
+        open={false}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      >
+        <Swiper
+          style={{
+            height: "100vh !important",
+            width: "100vw",
+            display: "flex",
+            justifyContent: "center",
+          }}
+          loop={true}
+          spaceBetween={10}
+          navigation={true}
+          modules={[Navigation, Thumbs]}
+          grabCursor={true}
+          thumbs={{ swiper: activeThumb }}
+          className="vehicle-image-slider"
+          onClick={(e) => handleClickOpen()}
+        >
+          {images.map((item, index) => (
+            <SwiperSlide key={index}>
+              <img2
+                style={{
+                  height: "100vh",
+                  width: "90vw",
+                  display: "flex",
+                  justifySelf: "center",
+                }}
+                src={item}
+                alt=""
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </SwiperSliderFull> */}
       <Swiper
         loop={true}
         spaceBetween={10}
@@ -28,6 +76,7 @@ const SwiperImage = ({ images }) => {
         grabCursor={true}
         thumbs={{ swiper: activeThumb }}
         className="vehicle-image-slider"
+        // onClick={(e) => handleClickOpen()}
       >
         {images.map((item, index) => (
           <SwiperSlide key={index}>

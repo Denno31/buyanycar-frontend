@@ -108,11 +108,11 @@ const FiltersMobile = () => {
   const [searchParams] = useSearchParams();
   const [fromYear, setFromYear] = React.useState("");
   const [toYear, setToYear] = React.useState("");
-  const [conditions, setConditions] = React.useState([]);
+  // const [conditions, setConditions] = React.useState([]);
   const navigate = useNavigate();
   //console.log("sidebar:==>", searchParams.getAll("condition"));
-  const filterAttributes = {};
-  const filter_attr_1_make = useSearchParams;
+  // const filterAttributes = {};
+  // const filter_attr_1_make = useSearchParams;
   const {
     // loading: loadingMakes,
     // error: errorMakes,
@@ -141,7 +141,7 @@ const FiltersMobile = () => {
   const getFilterUrl = (filter) => {
     const conditionParams = searchParams.getAll("condition");
 
-    let conditions = "&condition";
+    // let conditions = "&condition";
     const car_make = filter.car_make || searchParams.get("car_make") || "all";
     const car_model =
       filter.car_model || searchParams.get("car_model") || "all";
@@ -151,20 +151,20 @@ const FiltersMobile = () => {
     const price_max = filter.price_max || searchParams.get("price_max") || 0;
     const filterRegistered =
       filter.registered || searchParams.get("registered") || 0;
-    let conditionsArray =
-      filter.condition && !conditionParams.includes(filter.condition)
-        ? [...conditionParams, filter.condition]
-        : conditionParams || [];
-    if (filter.del) {
-      conditionsArray = conditionsArray.filter((c) => {
-        return c !== filter.condition && c !== "";
-      });
-    }
-    if (conditionsArray.length === 0) conditions = "";
-    conditionsArray.forEach((item, idx) => {
-      conditions += "=" + item;
-      if (idx < conditionsArray.length - 1) conditions += "&condition";
-    });
+    // let conditionsArray =
+    //   filter.condition && !conditionParams.includes(filter.condition)
+    //     ? [...conditionParams, filter.condition]
+    //     : conditionParams || [];
+    // if (filter.del) {
+    //   conditionsArray = conditionsArray.filter((c) => {
+    //     return c !== filter.condition && c !== "";
+    //   });
+    // }
+    // if (conditionsArray.length === 0) conditions = "";
+    // conditionsArray.forEach((item, idx) => {
+    //   conditions += "=" + item;
+    //   if (idx < conditionsArray.length - 1) conditions += "&condition";
+    // });
     let filterConditions = getParams("condition", filter.condition, filter.del);
     let filterBodyTypes = getParams("bodyType", filter.bodyType, filter.del);
     const filterEngineSize = getParams(

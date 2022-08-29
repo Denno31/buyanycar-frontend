@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import {
   Avatar,
   Box,
@@ -13,9 +13,10 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import SwiperImage from "./components/SwiperImage";
 import VehicleInformationCard from "./components/VehicleInformationCard";
-import { GET_VEHICLE } from "../../queries/vehicleQueries";
+import { GET_VEHICLE, GET_VEHICLE_SIMILAR } from "../../queries/vehicleQueries";
 import Spinner from "../../common/components/spinner/Spinner";
 import { shillingKE } from "../../utils/util";
+import VehicleCard from "../home/components/VehicleCard";
 
 const PageTitleBox = styled(Box)(({ theme }) => ({
   fontSize: "2.1rem",
@@ -64,8 +65,16 @@ const Vehicle = () => {
   const { loading, error, data } = useQuery(GET_VEHICLE, {
     variables: { vehicleId: id },
   });
+  const {
+    loading: loadingSimilar,
+    error: errorSimilar,
+    data: dataSimilar,
+  } = useQuery(GET_VEHICLE_SIMILAR, {
+    variables: { vehicleMake: data?.getVehicle?.make || "" },
+  });
   if (loading) return <Spinner />;
   if (error) return <Box>Something went wrong</Box>;
+  console.log(dataSimilar);
   return (
     <Container maxWidth="lg">
       <PageTitleBox>
@@ -89,6 +98,20 @@ const Vehicle = () => {
             {/* <ImageSlider images={productImages} /> */}
           </Box>
           <VehicleInformationCard vehicle={data?.getVehicle} />
+          <Box>
+            <PageTitleBox>Similar Cars</PageTitleBox>
+            <Box sx={{ marginTop: "10px" }}>
+              {loadingSimilar ? (
+                <Spinner />
+              ) : error ? (
+                <Box>Something went wrong</Box>
+              ) : (
+                dataSimilar?.getSimilarVehicles.map((vehicle) => (
+                  <VehicleCard key={vehicle._id} vehicle={vehicle} />
+                ))
+              )}
+            </Box>
+          </Box>
         </ImageWraperBox>
         <Box sx={{ flex: 1 }}>
           <Box>
@@ -165,9 +188,14 @@ const Vehicle = () => {
                 </Typography>
                 <SafetyTipsBox>
                   <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    <li>Remember, don't send any pre-payments</li>{" "}
+                    <li>Meet the seller at a safe public place </li>
+                    <li>
+                      Inspect the vehicle to make sure they meet your needs
+                    </li>
+                    <li>
+                      Check all documentation and only pay if you're satisfied
+                    </li>
                   </Typography>
                 </SafetyTipsBox>
               </Box>
@@ -175,10 +203,6 @@ const Vehicle = () => {
           </Box>
         </Box>
       </VehicleImageBox>
-      <Box>
-        <PageTitleBox>Similar Cars</PageTitleBox>
-        <Box></Box>
-      </Box>
     </Container>
   );
 };

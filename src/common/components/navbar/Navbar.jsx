@@ -12,11 +12,13 @@ import {
   Container,
   MenuItem,
   Menu,
+  IconButton,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import MenuIcon from "@mui/icons-material/Menu";
 // import { Link } from "react-router-dom";
 import SignupDialog from "../../../pages/home/components/Dialog/Signup";
 import SigninDialog from "../../../pages/home/components/Dialog/Signin";
@@ -118,14 +120,25 @@ const Navbar = () => {
     <AppBar position="sticky">
       <Container maxWidth="lg">
         <StyledToolbar>
-          <Typography
-            sx={{ fontSize: { xs: "1.1rem", md: "1.5rem" } }}
-            className={classes.brand}
-            variant="h6"
-            onClick={() => navigate("/")}
-          >
-            BuyAnyCarKe
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              {/* <MenuIcon /> */}
+            </IconButton>
+            <Typography
+              sx={{ fontSize: { xs: "1.1rem", md: "1.4rem" } }}
+              className={classes.brand}
+              variant="h6"
+              onClick={() => navigate("/")}
+            >
+              BuySellAnyCarKe
+            </Typography>
+          </Box>
           {userInfo && userInfo?.userInfo && (
             <Box className={classes.ProfileIcon}>
               <Avatar

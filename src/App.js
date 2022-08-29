@@ -18,6 +18,8 @@ import Account from "./pages/account/Account";
 import ActiveAds from "./pages/myads/ActiveAds";
 import EditVehicle from "./pages/myads/EditVehicle";
 import Favorite from "./pages/myads/Favorite";
+import UnderReviewAds from "./pages/myads/UnderReviewAds";
+import DeclinedAds from "./pages/myads/DeclinedAds";
 
 //const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
 const uri_dev = "http://localhost:5000/graphql";
@@ -105,6 +107,24 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Favorite />
+                  </PrivateRoute>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/me/under-review-ads"
+                element={
+                  <PrivateRoute>
+                    <UnderReviewAds />
+                  </PrivateRoute>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/me/declined-ads"
+                element={
+                  <PrivateRoute>
+                    <DeclinedAds />
                   </PrivateRoute>
                 }
               ></Route>

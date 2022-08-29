@@ -138,11 +138,38 @@ const GET_VEHICLES_BY_USER = gql`
     }
   }
 `;
-
+const GET_VEHICLE_SIMILAR = gql`
+  query getSimilarVehicles($vehicleMake: String!) {
+    getSimilarVehicles(vehicleMake: $vehicleMake) {
+      _id
+      make
+      model
+      color
+      condition
+      transmission
+      mileage
+      vinChassisNumber
+      description
+      phoneNumber
+      manufactureYear
+      bodyType
+      engineSize
+      price
+      location
+      vehicleImageUrl
+      negotiable
+      fuel
+      engineSize
+      registered
+      description
+    }
+  }
+`;
 export {
   GET_VEHICLES,
   GET_VEHICLE,
   GET_VEHICLE_MAKES,
   GET_VEHICLE_MODEL,
   GET_VEHICLES_BY_USER,
+  GET_VEHICLE_SIMILAR,
 };

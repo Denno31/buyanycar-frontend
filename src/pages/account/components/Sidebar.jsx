@@ -43,16 +43,16 @@ const Sidebar = ({ active }) => {
         </ListItem>
         <Divider />
 
-        <ListItem disablePadding>
-          <ListItemButton>
+        <ListItem sx={{ ...activeClass("under-review-ads") }} disablePadding>
+          <ListItemButton component={Link} to="/me/under-review-ads">
             <ListItemIcon></ListItemIcon>
             <ListItemText primary="Under Review Adverts" />
           </ListItemButton>
         </ListItem>
         <Divider />
 
-        <ListItem disablePadding>
-          <ListItemButton>
+        <ListItem sx={{ ...activeClass("declined-ads") }} disablePadding>
+          <ListItemButton component={Link} to="/me/declined-ads">
             <ListItemIcon></ListItemIcon>
             <ListItemText primary="Declined Adverts" />
           </ListItemButton>
