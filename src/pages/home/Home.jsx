@@ -28,15 +28,19 @@ const StyledBox = styled(Box)({
   marginTop: "20px",
 });
 const BannerWrapper = styled(Box)(({ theme }) => ({
+  background:"url('https://images.unsplash.com/photo-1432462770865-65b70566d673?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80') no-repeat",
   backgroundColor: theme.palette.primary.main,
   height: "300px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   boxSizing: "border-box",
+  backgroundBlendMode: "soft-light",
+  backgroundSize:"cover",
 }));
 const SearchWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
+  
   boxSizing: "border-box",
   // display: "flex",
   justifyContent: "center",
@@ -114,7 +118,7 @@ const Home = () => {
     <>
       <BannerWrapper>
         <Box sx={{}}>
-          <BannerHeader variant="h5">Find Your Perfect Car</BannerHeader>
+          <BannerHeader variant="h5">Find The Best Cars Buy And Sell</BannerHeader>
           <SearchWrapper>
             <SearchContent sx={{ textAlign: "center" }}>
               {" "}
