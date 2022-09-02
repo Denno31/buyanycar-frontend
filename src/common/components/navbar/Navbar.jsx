@@ -178,7 +178,7 @@ const Navbar = () => {
           )}
           {userInfo && userInfo?.userInfo && (
             <MenuBox>
-              <MessageIcon className={classes.MenuIcon} />
+              <MessageIcon onClick={(e)=>navigate('/me/messages')} className={classes.MenuIcon} />
               <NotificationsIcon className={classes.MenuIcon} />
               <BookmarkBorderIcon
                 onClick={(e) => navigate("/me/favorites")}
