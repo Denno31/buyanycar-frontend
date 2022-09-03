@@ -118,7 +118,7 @@ const Navbar = () => {
   };
   return (
     <AppBar position="sticky">
-      <Container maxWidth="lg">
+      <Box>
         <StyledToolbar>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <IconButton
@@ -199,7 +199,7 @@ const Navbar = () => {
             </MenuBox>
           )}
         </StyledToolbar>
-      </Container>
+      </Box>
       <SignupDialog
         open={dialogOpen}
         handleClickOpen={handleClickOpen}
