@@ -20,6 +20,7 @@ import EditVehicle from "./pages/myads/EditVehicle";
 import Favorite from "./pages/myads/Favorite";
 import UnderReviewAds from "./pages/myads/UnderReviewAds";
 import DeclinedAds from "./pages/myads/DeclinedAds";
+import Message from "./pages/message/Message";
 
 const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
 // const uri_dev = "http://localhost:5000/graphql";
@@ -134,6 +135,15 @@ function App() {
                 element={
                   <PrivateRoute>
                     <EditVehicle />
+                  </PrivateRoute>
+                }
+              ></Route>
+               <Route
+                exact
+                path="/me/messages"
+                element={
+                  <PrivateRoute>
+                    <Message />
                   </PrivateRoute>
                 }
               ></Route>

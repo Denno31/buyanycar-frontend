@@ -18,6 +18,7 @@ import { makeStyles } from "@mui/styles";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import MenuIcon from "@mui/icons-material/Menu";
 // import { Link } from "react-router-dom";
 import SignupDialog from "../../../pages/home/components/Dialog/Signup";
@@ -73,7 +74,11 @@ const SellIconStyled = styled(Box)(({ theme }) => ({
     cursor: "pointer",
     backgroundColor: "#38aa34",
   },
+  fontWeight: "500",
   boxSizing: "border-box",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 const AuthMenuItem = styled(Box)(({ theme }) => ({
   fontWeight: "600",
@@ -118,50 +123,49 @@ const Navbar = () => {
   };
   return (
     <AppBar position="sticky">
-      <Box>
-        <StyledToolbar>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton
+      <StyledToolbar>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {/* <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
             >
-              {/* <MenuIcon /> */}
-            </IconButton>
-            <Typography
-              sx={{ fontSize: { xs: "1.1rem", md: "1.4rem" } }}
-              className={classes.brand}
-              variant="h6"
-              onClick={() => navigate("/")}
-            >
-              BuySellAnyCarKe
-            </Typography>
+              <MenuIcon />
+            </IconButton> */}
+          <Typography
+            sx={{ fontSize: { xs: "1.0rem", md: "1.1rem" } }}
+            className={classes.brand}
+            variant="h6"
+            onClick={() => navigate("/")}
+          >
+            BuySellAnyCarKe
+          </Typography>
+        </Box>
+        {userInfo && userInfo?.userInfo && (
+          <Box className={classes.ProfileIcon}>
+            <Avatar
+              alt="Denno"
+              src="/image/image.jpg"
+              aria-controls={profileMenuOpen ? "profile-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={profileMenuOpen ? "true" : undefined}
+              onClick={handleOpenMenu}
+            ></Avatar>
           </Box>
-          {userInfo && userInfo?.userInfo && (
-            <Box className={classes.ProfileIcon}>
-              <Avatar
-                alt="Denno"
-                src="/image/image.jpg"
-                aria-controls={profileMenuOpen ? "profile-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={profileMenuOpen ? "true" : undefined}
-                onClick={handleOpenMenu}
-              ></Avatar>
-            </Box>
-          )}
-          {!(userInfo && userInfo?.userInfo) && (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <AuthMenuItem onClick={handleClickOpen}>Register</AuthMenuItem>
-              <AuthMenuItem onClick={handleClickOpenSignin}>Login</AuthMenuItem>
-              {/* <SellIconStyled
+        )}
+        {!(userInfo && userInfo?.userInfo) && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <AuthMenuItem onClick={handleClickOpen}>Register</AuthMenuItem>
+            <AuthMenuItem onClick={handleClickOpenSignin}>Login</AuthMenuItem>
+            {/* <SellIconStyled
                 onClick={() => {
                   if (!userInfo) return handleClickOpenSignin();
                   navigate("/new-ad");
@@ -169,37 +173,40 @@ const Navbar = () => {
               >
                 Want to Sell?
               </SellIconStyled> */}
-            </Box>
-          )}
-          {userInfo && userInfo?.userInfo && (
-            <MenuBox>
-              <MessageIcon className={classes.MenuIcon} />
-              <NotificationsIcon className={classes.MenuIcon} />
-              <BookmarkBorderIcon
-                onClick={(e) => navigate("/me/favorites")}
-                className={classes.MenuIcon}
-              />
-              <Avatar
-                alt="Denno"
-                src="/image/image.jpg"
-                id="basic-button"
-                aria-controls={profileMenuOpen ? "profile-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={profileMenuOpen ? "true" : undefined}
-                onClick={handleOpenMenu}
-              ></Avatar>
-              <SellIconStyled
-                onClick={() => {
-                  if (!userInfo) return handleClickOpenSignin();
-                  navigate("/new-ad");
-                }}
-              >
-                Want to Sell?
-              </SellIconStyled>
-            </MenuBox>
-          )}
-        </StyledToolbar>
-      </Box>
+          </Box>
+        )}
+        {userInfo && userInfo?.userInfo && (
+          <MenuBox>
+            <MessageIcon
+              onClick={(e) => navigate("/me/messages")}
+              className={classes.MenuIcon}
+            />
+            <NotificationsIcon className={classes.MenuIcon} />
+            <BookmarkBorderIcon
+              onClick={(e) => navigate("/me/favorites")}
+              className={classes.MenuIcon}
+            />
+            <Avatar
+              alt="Denno"
+              src="/image/image.jpg"
+              id="basic-button"
+              aria-controls={profileMenuOpen ? "profile-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={profileMenuOpen ? "true" : undefined}
+              onClick={handleOpenMenu}
+            ></Avatar>
+            <SellIconStyled
+              onClick={() => {
+                if (!userInfo) return handleClickOpenSignin();
+                navigate("/new-ad");
+              }}
+            >
+              <DirectionsCarIcon /> Want to Sell?
+            </SellIconStyled>
+          </MenuBox>
+        )}
+      </StyledToolbar>
+
       <SignupDialog
         open={dialogOpen}
         handleClickOpen={handleClickOpen}
