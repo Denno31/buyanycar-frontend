@@ -22,11 +22,11 @@ import UnderReviewAds from "./pages/myads/UnderReviewAds";
 import DeclinedAds from "./pages/myads/DeclinedAds";
 import Message from "./pages/message/Message";
 
-const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
-// const uri_dev = "http://localhost:5000/graphql";
+//const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
+const uri_dev = "http://localhost:5000/graphql";
 
 const httpLink = createHttpLink({
-  uri: uri_prod,
+  uri: uri_dev,
 });
 
 const authLink = setContext(() => {
@@ -138,7 +138,7 @@ function App() {
                   </PrivateRoute>
                 }
               ></Route>
-               <Route
+              <Route
                 exact
                 path="/me/messages"
                 element={
