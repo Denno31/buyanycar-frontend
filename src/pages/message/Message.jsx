@@ -58,7 +58,7 @@ const Message = () => {
                 <div key={idx}>
                 <ListItem  alignItems="flex-start">
                 <ListItemAvatar>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                  <Avatar alt={chat?.firstName} src="/static/images/avatar/1.jpg" />
                 </ListItemAvatar>
                 <ListItemText
                   primary={`${chat?.firstName} ${chat?.lastName}`}
