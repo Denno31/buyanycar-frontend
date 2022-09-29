@@ -147,6 +147,15 @@ function App() {
                   </PrivateRoute>
                 }
               ></Route>
+               <Route
+                exact
+                path="/me/messages/:toId"
+                element={
+                  <PrivateRoute>
+                    <Message />
+                  </PrivateRoute>
+                }
+              ></Route>
               <Route path="*" element={<Home />}></Route>
             </Routes>
             <BottomNav />

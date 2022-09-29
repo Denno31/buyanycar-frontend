@@ -13,8 +13,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import SendIcon from "@mui/icons-material/Send";
-import { GET_MESSAGES } from "../../queries/messageQueries";
+import { GET_CHATS, GET_MESSAGES } from "../../queries/messageQueries";
 import { useQuery } from "@apollo/client";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 const WrapperBox = styled(Box)({
   marginTop: "30px",
 });
@@ -34,8 +36,17 @@ const MessageBox = styled(Box)({
   boxShadow: "0 2px 3px 0 rgb(0 0 0 / 5%)",
 });
 const Message = () => {
-  const {loading,error,data} = useQuery(GET_MESSAGES)
-  console.log(data)
+  const navigate = useNavigate()
+  const {userInfo} = useSelector(state=>state.userInfo)
+  console.log(userInfo)
+  const {toId} = useParams()
+  const {loading,error,data} = useQuery(GET_CHATS)
+  const {loading:loadingMessages,error:errorMessages,data:dataMessages} = useQuery(GET_MESSAGES,{
+    variables:{
+      fromUser:toId
+    }
+  })
+  console.log(dataMessages)
   return (
     <Container>
       {" "}
@@ -55,7 +66,7 @@ const Message = () => {
               sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
             >
               {data?.getChatUsers.map((chat,idx)=>(
-                <div key={idx}>
+                <div key={chat.id} onClick={()=> navigate('/me/messages/'+chat.id)}>
                 <ListItem  alignItems="flex-start">
                 <ListItemAvatar>
                   <Avatar alt={chat?.firstName} src="/static/images/avatar/1.jpg" />
@@ -94,11 +105,11 @@ const Message = () => {
             }}
           >
             <Box>
-              <Box
+              {dataMessages?.getMessages.map(msg=><Box key={msg._id}
                 sx={{
                   padding: "10px",
                   display: "flex",
-                  justifyContent: "flex-end",
+                  justifyContent: msg._id === userInfo.id ? "flex-end": "flex-start",
                 }}
               >
                 <MessageBox>
@@ -107,19 +118,8 @@ const Message = () => {
                   </Typography>
                   <Typography>21:20</Typography>
                 </MessageBox>
-              </Box>
-              <Box
-                sx={{
-                  padding: "10px",
-                  display: "flex",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <MessageBox>
-                  <Typography component="p">This is my message</Typography>
-                  <Typography>21:20</Typography>
-                </MessageBox>
-              </Box>
+              </Box>)}
+              
             </Box>
             <Paper>
               <Box

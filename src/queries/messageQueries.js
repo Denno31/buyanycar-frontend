@@ -1,12 +1,23 @@
 import { gql } from "@apollo/client";
 
-const GET_MESSAGES = gql`
+const GET_CHATS = gql`
     query{
     getChatUsers {
         firstName
         lastName
         latestMessage
+        id
   }
     }
 `
-export {GET_MESSAGES}
+const GET_MESSAGES = gql`
+    query GetMessages($fromUser: ID) {
+  getMessages(fromUser: $fromUser) {
+    content
+    createdAt 
+    _id
+  }
+ 
+}
+`
+export {GET_CHATS,GET_MESSAGES}
