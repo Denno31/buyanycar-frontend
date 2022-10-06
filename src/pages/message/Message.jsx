@@ -14,9 +14,10 @@ import {
 import React from "react";
 import SendIcon from "@mui/icons-material/Send";
 import { GET_CHATS, GET_MESSAGES } from "../../queries/messageQueries";
-import { useQuery } from "@apollo/client";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import {  useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { POST_MESSAGE } from "../../mutations/messageMutations";
 const WrapperBox = styled(Box)({
   marginTop: "30px",
 });
@@ -38,15 +39,35 @@ const MessageBox = styled(Box)({
 const Message = () => {
   const navigate = useNavigate()
   const {userInfo} = useSelector(state=>state.userInfo)
-  console.log(userInfo)
+  const [errors,setErrors] = React.useState({})
+  const [content,setContent] = React.useState("")
+  
   const {toId} = useParams()
   const {loading,error,data} = useQuery(GET_CHATS)
-  const {loading:loadingMessages,error:errorMessages,data:dataMessages} = useQuery(GET_MESSAGES,{
+  const [getMessages,{loading:loadingMessages,error:errorMessages,data:dataMessages}] = useLazyQuery(GET_MESSAGES,{
     variables:{
       fromUser:toId
     }
   })
-  console.log(dataMessages)
+  const [postMessage,{data:dataPostMessage,loading:loadingPostMessage,error:errorPostMessage}] = useMutation(POST_MESSAGE,
+     {
+      update(proxy, result) {
+        console.log(result);
+        
+      },
+      onError(err) {
+        //console.log(err.graphQLErrors[0].extensions.errors);
+        setErrors(err.graphQLErrors[0].extensions.errors);
+      },
+      variables:{
+        content,
+        to:toId
+      }
+     }
+    )
+    React.useEffect(()=>{
+      getMessages()
+    },[toId])
   return (
     <Container>
       {" "}
@@ -109,12 +130,12 @@ const Message = () => {
                 sx={{
                   padding: "10px",
                   display: "flex",
-                  justifyContent: msg._id === userInfo.id ? "flex-end": "flex-start",
+                  justifyContent: msg.users[0]=== userInfo.id ? "flex-end": "flex-start",
                 }}
               >
                 <MessageBox>
                   <Typography component="p">
-                    This is recipients message
+                    {msg?.content}
                   </Typography>
                   <Typography>21:20</Typography>
                 </MessageBox>
@@ -133,9 +154,11 @@ const Message = () => {
                 <StyledInput
                   type="text"
                   placeholder="Write your message here"
+                  onChange={(e)=>setContent(e.target.value)}
                 ></StyledInput>
-                <Box>
+                <Box >
                   <SendIcon
+                    onClick={postMessage}
                     sx={{ cursor: "pointer" }}
                     fontSize="large"
                     color="secondary"

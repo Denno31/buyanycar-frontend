@@ -15,7 +15,10 @@ const GET_MESSAGES = gql`
   getMessages(fromUser: $fromUser) {
     content
     createdAt 
+    toUser
+    fromUser
     _id
+    users
   }
  
 }
