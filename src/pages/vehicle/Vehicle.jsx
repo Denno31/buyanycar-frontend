@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import {
   Avatar,
   Box,
@@ -8,6 +8,7 @@ import {
   Card,
   Container,
   styled,
+  TextField,
   Typography,
 } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
@@ -17,6 +18,8 @@ import { GET_VEHICLE, GET_VEHICLE_SIMILAR } from "../../queries/vehicleQueries";
 import Spinner from "../../common/components/spinner/Spinner";
 import { shillingKE } from "../../utils/util";
 import VehicleCard from "../home/components/VehicleCard";
+import CloseIcon from '@mui/icons-material/Close';
+import { POST_MESSAGE } from "../../mutations/messageMutations";
 
 const PageTitleBox = styled(Box)(({ theme }) => ({
   fontSize: "2.1rem",
@@ -58,10 +61,17 @@ const SafetyTipsBox = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.primary.main}`,
   padding: "5px",
 }));
-
+const StartChatBtn = styled(Button)(({ theme }) => ({
+ marginTop:"10px",
+ "&:hover": {
+  //you want this to be the same as the backgroundColor above
+  backgroundColor: theme.palette.primary.main
+}
+}));
 const Vehicle = () => {
   const { id } = useParams();
-
+  const [openChat,setOpenChat] = React.useState(false)
+  const [content,setContent] = React.useState("")
   const { loading, error, data } = useQuery(GET_VEHICLE, {
     variables: { vehicleId: id },
   });
@@ -72,9 +82,33 @@ const Vehicle = () => {
   } = useQuery(GET_VEHICLE_SIMILAR, {
     variables: { vehicleMake: data?.getVehicle?.make || "" },
   });
+  const [postMessage,{data:dataPostMessage,loading:loadingPostMessage,error:errorPostMessage}] = useMutation(POST_MESSAGE,
+    {
+     update(proxy, result) {
+       console.log(result);
+       
+     },
+     onError(err) {
+       //console.log(err.graphQLErrors[0].extensions.errors);
+      //  setErrors(err.graphQLErrors[0].extensions.errors);
+      console.log(error)
+     },
+     variables:{
+       content,
+       to:data?.getVehicle?.vehicleOwner.id
+     }
+    }
+   )
   if (loading) return <Spinner />;
   if (error) return <Box>Something went wrong</Box>;
-  console.log(dataSimilar);
+
+  const handleOpenChat = ()=>{
+    setOpenChat(true)
+  }
+  const handleCloseChat = ()=>{
+    setOpenChat(false)
+  }
+
   return (
     <Container maxWidth="lg">
       <PageTitleBox>
@@ -142,13 +176,21 @@ const Vehicle = () => {
                       : "(Not Negotiable)"}
                   </Typography>
                 </Box>
-                <Button
+                {!openChat && <Button
+                onClick={handleOpenChat}
                   color="secondary"
-                  variant="outlined"
+                  variant="outlined" 
                   startIcon={<MessageIcon />}
                 >
                   Chat with Seller
-                </Button>
+                </Button>}
+                {openChat && <Box>
+                  <Box sx={{display:"flex", justifyContent:"flex-end"}}><CloseIcon onClick={handleCloseChat}  sx={{cursor:"pointer"}}/></Box>
+                  <TextField value={content} fullWidth label="Type a Message" onChange={(e)=>setContent(e.target.value)}>
+
+                  </TextField>
+                  <StartChatBtn variant="contained" fullWidth onClick={postMessage}>Start chart</StartChatBtn>
+                </Box>}
               </Box>
             </Card>
           </Box>

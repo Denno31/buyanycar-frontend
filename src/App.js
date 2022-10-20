@@ -4,7 +4,10 @@ import {
   ApolloClient,
   InMemoryCache,
   createHttpLink,
+  split,
 } from "@apollo/client";
+import { WebSocketLink} from "@apollo/client/link/ws"
+import {createClient} from 'graphql-ws'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BottomNav from "./common/components/navbar/BottomNav";
 import Navbar from "./common/components/navbar/Navbar";
@@ -21,11 +24,14 @@ import Favorite from "./pages/myads/Favorite";
 import UnderReviewAds from "./pages/myads/UnderReviewAds";
 import DeclinedAds from "./pages/myads/DeclinedAds";
 import Message from "./pages/message/Message";
+import { getMainDefinition } from "@apollo/client/utilities";
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+
 
 //const uri_prod = "https://buyanycar-backend.herokuapp.com/graphql";
 const uri_dev = "http://localhost:5000/graphql";
 
-const httpLink = createHttpLink({
+let httpLink = createHttpLink({
   uri: uri_dev,
 });
 
@@ -35,11 +41,24 @@ const authLink = setContext(() => {
     headers: { Authorization: user ? `Bearer ${user.token}` : "" },
   };
 });
-
+httpLink = authLink.concat(httpLink)
+const wsLink = new GraphQLWsLink(createClient({
+  url:`ws://localhost:5000/`,
+ 
+}))
+const splitLink = split(({query})=>{
+  const definition = getMainDefinition(query);
+  return (
+    definition.kind ==='OperationDefinition' && definition.operation === 'subscription'
+  )
+},
+wsLink,httpLink
+)
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: splitLink,
   cache: new InMemoryCache(),
 });
+
 
 let theme = createTheme({});
 theme = createTheme(theme, {

@@ -135,6 +135,7 @@ const CreateAd = () => {
     },
     onError(err) {
       //console.log(err.graphQLErrors[0].extensions.errors);
+      console.log("on error:", err)
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
     variables: {
@@ -152,10 +153,11 @@ const CreateAd = () => {
       manufactureYear: manufactureYear.toString(),
       condition,
       bodyType,
-      location: `${county}, ${area}`,
+      location: county,
       engineSize: parseInt(engineSize) ? parseInt(engineSize) : 0,
       registered,
       vinChassisNumber: "",
+      area
     },
   });
   //post data after cloudinary upload is done

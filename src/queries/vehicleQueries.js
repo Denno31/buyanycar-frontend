@@ -16,6 +16,8 @@ const GET_VEHICLES = gql`
     $price_min: Float
     $price_max: Float
     $registered: String
+    $location:String
+    $area:String
   ) {
     getVehicles(
       order: $order
@@ -33,6 +35,8 @@ const GET_VEHICLES = gql`
         price_max: $price_max
         registered: $registered
         model: $model
+        location:$location
+        area:$area
       }
     ) {
       _id
@@ -57,6 +61,7 @@ const GET_VEHICLES = gql`
       }
       engineSize
       registered
+      area
     }
   }
 `;
@@ -84,10 +89,12 @@ const GET_VEHICLE = gql`
       vehicleOwner {
         firstName
         lastName
+        id
       }
       engineSize
       registered
       description
+      area
     }
   }
 `;

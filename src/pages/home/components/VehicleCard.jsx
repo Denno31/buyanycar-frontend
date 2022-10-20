@@ -123,7 +123,7 @@ const VehicleCard = ({ vehicle }) => {
               color="secondary"
               sx={{ fontSize: "13px" }}
             >
-              {vehicle.location}
+              {vehicle?.location}, {vehicle?.area}
             </Typography>
           </Box>
         </CardDescriptonBox>

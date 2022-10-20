@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import SendIcon from "@mui/icons-material/Send";
-import { GET_CHATS, GET_MESSAGES } from "../../queries/messageQueries";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { GET_CHATS, GET_MESSAGES, NEW_MESSAGE } from "../../queries/messageQueries";
+import { useLazyQuery, useMutation, useQuery, useSubscription } from "@apollo/client";
 import {  useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { POST_MESSAGE } from "../../mutations/messageMutations";
@@ -65,6 +65,13 @@ const Message = () => {
       }
      }
     )
+    const {data:messageData, error:messageError}  = useSubscription(NEW_MESSAGE)
+    React.useEffect(()=>{
+      if(messageError) console.log(messageError)
+      if(messageData){
+        console.log(messageData)
+      }
+    },[messageError,messageData])
     React.useEffect(()=>{
       getMessages()
     },[toId])

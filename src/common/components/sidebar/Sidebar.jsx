@@ -28,6 +28,7 @@ import {
   GET_VEHICLE_MODEL,
 } from "../../../queries/vehicleQueries";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { GET_COUNTIES } from "../../../queries/countyQueries";
 
 const engineSizes = [
   3000, 2700, 2500, 2000, 1500, 800, 700, 6400, 5700, 5600, 5500, 4800, 4700,
@@ -113,13 +114,20 @@ const Sidebar = () => {
   //console.log("sidebar:==>", searchParams.getAll("condition"));
   const filterAttributes = {};
   const filter_attr_1_make = useSearchParams;
+
+  const {
+    loading: loadingCounties,
+    error: errorCounties,
+    data: dataCounties,
+  } = useQuery(GET_COUNTIES);
+
   const {
     // loading: loadingMakes,
     // error: errorMakes,
     data: dataMakes,
   } = useQuery(GET_VEHICLE_MAKES);
   const {
-    // loading: loadingModels,
+    // loading: loadingModels
     error: errorModels,
     data: dataModels,
   } = useQuery(GET_VEHICLE_MODEL, {
@@ -235,10 +243,56 @@ const Sidebar = () => {
       </FiltersHeaderCard>
 
       <Box sx={{ marginTop: "10px" }}>
-        <FilterItemLocation>
-          <Typography component="p">Location</Typography>
-          <ArrowForwardIosIcon fontSize="inherit" />
-        </FilterItemLocation>
+       
+          {/* <Typography component="p">Location</Typography>
+          <ArrowForwardIosIcon fontSize="inherit" /> */}
+           <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Location</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ maxHeight: "200px", overflow: "scroll" }}>
+              <FormControl>
+                {/* <FormLabel id="car-makes-label">Car Registered?</FormLabel> */}
+                <RadioGroup
+                  aria-labelledby="car-location-label"
+                  defaultValue="ALL"
+                  name="radio-buttons-group-location"
+                >
+                  <FormControlLabel
+                    key="ALL"
+                    value="ALL"
+                    control={
+                      <Radio
+                       
+                      />
+                    }
+                    label="Show All"
+                  />
+
+                  {dataCounties?.getCounties.map((county, index) => (
+                    <FormControlLabel
+                      key={`${county.name}-${index}`}
+                      value={county.name}
+                      control={
+                        <Radio
+                         onChange={(e)=>navigate(`/?location=${county.name}`)}
+                        />
+                      }
+                      label={county.name}
+                    />
+                  ))}
+                  {/* <FormControlLabel value="NO" control={<Radio />} label="NO" /> */}
+                </RadioGroup>
+              </FormControl>
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+       
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

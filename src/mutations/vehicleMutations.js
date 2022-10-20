@@ -20,6 +20,7 @@ const POST_ADD = gql`
     $engineSize: Float!
     $registered: Boolean!
     $vinChassisNumber: String
+    $area:String!
   ) {
     postVehicle(
       vehicleInput: {
@@ -41,6 +42,7 @@ const POST_ADD = gql`
         engineSize: $engineSize
         registered: $registered
         vinChassisNumber: $vinChassisNumber
+        area:$area
       }
     ) {
       make
@@ -69,6 +71,7 @@ const UPDATE_ADD = gql`
     $engineSize: Float!
     $registered: Boolean!
     $vinChassisNumber: String
+    $area:String!
   ) {
     editVehicle(
       vehicleInput: {
@@ -91,6 +94,7 @@ const UPDATE_ADD = gql`
         engineSize: $engineSize
         registered: $registered
         vinChassisNumber: $vinChassisNumber
+        area:$area
       }
     ) {
       make

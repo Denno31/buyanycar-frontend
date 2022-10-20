@@ -23,4 +23,16 @@ const GET_MESSAGES = gql`
  
 }
 `
-export {GET_CHATS,GET_MESSAGES}
+const NEW_MESSAGE =  gql`
+subscription newMessage{
+  newMessage{
+    fromUser
+    toUser
+    _id
+    createdAt
+    content
+    user
+  }
+}
+`
+export {GET_CHATS,GET_MESSAGES,NEW_MESSAGE}

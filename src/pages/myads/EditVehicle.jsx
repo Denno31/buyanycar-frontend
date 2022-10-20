@@ -106,8 +106,8 @@ const CreateAd = () => {
       let loc = data?.getVehicle?.location.split(",");
       ///console.log("----------------", data?.getVehicle?.vehicleImageUrl);
       setFiles(data?.getVehicle?.vehicleImageUrl);
-      setCounty(loc[0].trim());
-      setArea(loc[1].trim());
+      setCounty(data?.getVehicle?.location);
+      setArea(data?.getVehicle?.area);
       setMake(data?.getVehicle?.make);
       setModel(data?.getVehicle?.model);
       setManufactureYear(data?.getVehicle?.manufactureYear);
@@ -187,10 +187,11 @@ const CreateAd = () => {
         manufactureYear: manufactureYear.toString(),
         condition,
         bodyType,
-        location: `${county}, ${area}`,
+        location: county,
         engineSize: parseInt(engineSize) ? parseInt(engineSize) : 0,
         registered,
         vinChassisNumber: "",
+        area
       },
     }
   );
@@ -210,26 +211,7 @@ const CreateAd = () => {
   if (loadingMakes || loadingCounties) return <Spinner />;
   if (errorMakes || errorCounties) return <div>Something went wrong</div>;
 
-  //select file event
-  // const onSelectFiles = (e) => {
-  //   setImgError("");
 
-  //   if (imageFileExists(e.target.files[0].name)) {
-  //     setImgError("The image has already been selected.");
-  //     return;
-  //   }
-  //   if (files.length === 15) {
-  //     setImgError("Maximum number of images reach.");
-  //     return;
-  //   }
-  //   setFiles([...files, e.target.files[0]]);
-
-  //   // set images in local storage
-  //   let tempImagesArr = [];
-  //   //console.log(e.target.files[0]);
-  //   tempImagesArr = [...files, e.target.files[0]];
-  //   localStorage.setItem("selectedImages", JSON.stringify(tempImagesArr));
-  // };
   const removeImage = (img) => {
     const newImageArray = files.filter((item) => item !== img);
     setFiles(newImageArray);
@@ -261,35 +243,6 @@ const CreateAd = () => {
     return years;
   };
   //post data after upload is done
-
-  // const uploadData = async () => {
-  //   const uploadImageArray = [];
-  //   const data = new FormData();
-
-  //   data.append("upload_preset", "instaclone");
-  //   data.append("cloud_name", "dm7tddlog");
-  //   try {
-  //     files.forEach(async (singleFile) => {
-  //       data.append("file", singleFile);
-  //       const res = await fetch(
-  //         "https://api.cloudinary.com/v1_1/dm7tddlog/image/upload",
-  //         {
-  //           method: "post",
-  //           body: data,
-  //         }
-  //       );
-  //       const jsonData = await res.json();
-  //       uploadImageArray.push(jsonData.url);
-  //       //console.log(jsonData.url);
-  //     });
-
-  //     setUploadedImages([...uploadImageArray]);
-  //     setImageUploadDone(true);
-  //   } catch (err) {
-  //     setImageUploadDone(false);
-  //     console.log(err);
-  //   }
-  // };
 
   const uploadSingleImage = async (e) => {
     setImgError("");
@@ -493,7 +446,7 @@ const CreateAd = () => {
                   style={{ fontSize: ".8rem", color: "red" }}
                   component="p"
                 >
-                  {errors.vehicleImageUrl}
+                  {/* {errors.vehicleImageUrl} */}
                   {imgError}
                 </Typography>
               </ImageHeaderBox>

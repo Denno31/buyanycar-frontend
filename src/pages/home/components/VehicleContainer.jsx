@@ -34,7 +34,7 @@ const BoxResponseItem = styled(Box)(({ theme }) => ({
 const VehicleContainer = () => {
   const [searchParams] = useSearchParams();
   const [sortKey, setSortKey] = useState("recommended");
-
+ 
   const [open, setOpen] = React.useState(false);
   const [openFilterDialog, setOpenFilterDialog] = React.useState(false);
   const menuList = {
@@ -44,6 +44,7 @@ const VehicleContainer = () => {
     lowest: "Lowest price first",
     highest: "Highest price first",
   };
+  const locationFilter = searchParams.get("location")
   const car_make = searchParams.get("car_make");
   const car_model = searchParams.get("car_model");
   const min_year = searchParams.get("min_year");
@@ -59,7 +60,7 @@ const VehicleContainer = () => {
   const engineSizeParams = searchParams
     .getAll("engineSize")
     .map((e) => Number(e));
-  console.log(car_model, "container");
+
   const { loading, error, data, refetch } = useQuery(GET_VEHICLES, {
     variables: {
       order: sortKey,
@@ -76,6 +77,7 @@ const VehicleContainer = () => {
       price_min: Number(price_min),
       price_max: Number(price_max),
       registered: registeredFilter,
+      location:locationFilter
     },
   });
 
@@ -103,6 +105,7 @@ const VehicleContainer = () => {
   const handleCloseFilterDialog = () => {
     setOpenFilterDialog(false);
   };
+
   return (
     <Box flex={2.9}>
       <SortForm
