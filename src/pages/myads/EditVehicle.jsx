@@ -83,12 +83,12 @@ const CreateAd = () => {
   const [color, setColor] = React.useState("");
   const [condition, setCondition] = React.useState("");
   const [fuelType, setFuelType] = React.useState("");
-  const [engineSize, setEngineSize] = React.useState(undefined);
-  const [mileage, setMileage] = React.useState(undefined);
+  const [engineSize, setEngineSize] = React.useState("");
+  const [mileage, setMileage] = React.useState("");
   const [transmission, setTransmission] = React.useState("");
   const [bodyType, setBodyType] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [price, setPrice] = React.useState(undefined);
+  const [price, setPrice] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [negotiable, setNegotiable] = React.useState(true);
   const [registered, setRegistered] = React.useState(true);
@@ -161,7 +161,7 @@ const CreateAd = () => {
     UPDATE_ADD,
     {
       update(proxy, result) {
-        // console.log(result);
+         console.log(result);
         if (result?.data?.editVehicle) {
           resetState();
           navigate("/me/active-ads");
@@ -191,14 +191,16 @@ const CreateAd = () => {
         engineSize: parseInt(engineSize) ? parseInt(engineSize) : 0,
         registered,
         vinChassisNumber: "",
-        area
+        area:area
       },
+      refetchQueries:[{query:GET_VEHICLE,variables: { vehicleId: vehicleId }}]
     }
   );
   React.useEffect(() => {
     getSubCounties({ variables: { countyName: county } });
     getVehicleModels({ variables: { vehicleMake: make } });
   }, [county, getSubCounties, getVehicleModels, make]);
+ 
   //post data after cloudinary upload is done
   // React.useEffect(() => {
   //   // if (imageUploadDone && uploadedImages.length > 0) {
@@ -339,6 +341,7 @@ const CreateAd = () => {
     localStorage.removeItem("selectedImages");
   }
   //console.log(files);
+  
   return (
     <Container>
       <Box sx={{ margin: "30px auto", maxWidth: "900px" }}>
@@ -460,7 +463,7 @@ const CreateAd = () => {
                   <FormControl sx={{ mb: 2 }} fullWidth>
                     <InputLabel id="county-label">County</InputLabel>
                     <Select
-                      error={errors.location}
+                      error={errors?.location}
                       onChange={handleCountyChange}
                       value={county}
                       labelId="county-label"
@@ -478,13 +481,17 @@ const CreateAd = () => {
                   <FormControl sx={{ mb: 2 }} fullWidth>
                     <InputLabel id="area-label">Area</InputLabel>
                     <Select
-                      error={errors.location}
+                      error={errors?.location}
                       labelId="area-label"
                       id="area-label"
                       label="Area"
                       defaultValue=""
                       value={area}
-                      onChange={(e) => setArea(e.target.value)}
+                      onChange={(e) => {
+                        console.log("area on change")
+                        setArea(e.target.value)
+                        console.log(area)
+                      }}
                       disabled={!county}
                     >
                       {dataSubcounties?.getSubCounties.map((item) => (
@@ -535,8 +542,9 @@ const CreateAd = () => {
                 </InputBox>
                 <InputBox>
                   <FormControl sx={{ mb: 2 }} fullWidth>
-                    <InputLabel id="year-label">Year of manufacture</InputLabel>
+                    <InputLabel id="year-label">Year</InputLabel>
                     <Select
+                    
                       error={errors.manufactureYear}
                       labelId="year-label"
                       id="make-label"
@@ -689,7 +697,7 @@ const CreateAd = () => {
                     required
                     fullWidth
                     label="Engine size CC"
-                    value={engineSize}
+                    value={engineSize || ''}
                     onChange={(e) => setEngineSize(e.target.value)}
                   />
                   <TextField
@@ -710,7 +718,7 @@ const CreateAd = () => {
                     required
                     fullWidth
                     label="Price"
-                    value={price}
+                    value={price || ''}
                     onChange={(e) => setPrice(e.target.value)}
                   />
                   <TextField

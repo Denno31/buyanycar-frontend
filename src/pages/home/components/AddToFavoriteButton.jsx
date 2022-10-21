@@ -43,7 +43,7 @@ const AddToFavoriteButton = ({ vehicleId }) => {
           ...localStorageUser,
           favoriteVehicles: result.data.postFavoriteVehicle.favoriteVehicles,
         };
-        console.log(updatedUser);
+      
         localStorage.setItem("user", JSON.stringify(updatedUser));
       },
       onError(error) {
